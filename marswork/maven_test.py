@@ -9,9 +9,27 @@ def log(*args):
 
 
 def test1():
-    NGIMS = maven_data.data_from_pkl('../2018-03-07_NGIMS.pkl')
-    Ts = maven_math.temperatures_from_NGIMS(NGIMS)
+    orbit = 6682
+    NGIMS_path = '../2018-03-07_NGIMS_{orbit}.pkl'.format(orbit=orbit)
+    NGIMS = maven_data.data_from_pkl(NGIMS_path)
+    # Ts = maven_math.temperatures_from_NGIMS(NGIMS, 'N2')
+    D, K = maven_math.eddy_diffusion_from_NGIMS(NGIMS)
 
-    log(Ts)
-    plt.plot(Ts)
+    plt.plot(D)
+    plt.plot(K)
     plt.show()
+
+
+def test2():
+    orbit = 6682
+    NGIMS_path = '../2018-03-07_NGIMS_{orbit}.pkl'.format(orbit=orbit)
+    NGIMS = maven_data.data_from_pkl(NGIMS_path)
+    T = maven_math.temperatures_from_NGIMS(NGIMS, species='N2')
+
+    plt.plot(T)
+    plt.show()
+
+
+if __name__ == '__main__':
+    # test1()
+    test2()
